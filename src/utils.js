@@ -187,7 +187,7 @@ var utils = {
      * @param  {Number} degrees [弧度]
      * @return {Number}         [角度]
      */
-    radsToDegrees: function(redians) {
+    radsToDegrees: function(radians) {
         return radians * 180 / Math.PI;
     },
 

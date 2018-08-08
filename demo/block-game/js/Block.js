@@ -3,7 +3,8 @@
  * Author: Hank Hsiao
  * extents GameObject
  */
-class Block extends GameObject {  
+
+class Block extends GameObject {
     constructor(ctx, x, y) {
         let rnd = utils.randomInt(0, 0);
         super(ctx, x, y, preloadImages[Block.data[rnd].type].img); // super(ctx, x, y, img)
@@ -17,15 +18,17 @@ class Block extends GameObject {
         this.type = Block.data[rnd].type;
         this.score = Block.data[rnd].score;
     }
-}
 
-Block.data = [
-    {
-        type: 'block0',
-        score: 1,
-    },
-    {
-        type: 'block1',
-        score: 2,
-    },
-];
+    static get data() {
+        return [
+            {
+                type: 'block0',
+                score: 1,
+            },
+            {
+                type: 'block1',
+                score: 2,
+            },
+        ];
+    }
+}

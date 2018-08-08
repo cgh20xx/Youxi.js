@@ -44,16 +44,6 @@ class BlockGrid {
     update() {
         this.blockPool.forEachAlive(function(block) {
             block.update();
-            // overlap detect catcher and block
-            // if (utils.rectOverlap(this.catcher, block)) {
-            //     // console.log('catcher overlap ' + block.type + ' score + ' + block.score);
-            //     // this._updateScore(block); 
-            //     block.kill();
-            // }
-
-            // if (block.top > this.height) {
-            //     block.kill();
-            // }
         }, this);
     }
 

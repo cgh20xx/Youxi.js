@@ -15,6 +15,10 @@ let preloadImages;
         manifest : [
             {id: 'block0', src: 'images/block0.png'},
             {id: 'block1', src: 'images/block1.png'},
+            {id: 'pill0', src: 'images/pill0.png'},
+            {id: 'pill1', src: 'images/pill1.png'},
+            {id: 'pill2', src: 'images/pill2.png'},
+            {id: 'pill3', src: 'images/pill3.png'}
         ],
         onEachLoad: function(info) {
             // console.log('讀取中(' + info.index + '/' + info.total + ')');
