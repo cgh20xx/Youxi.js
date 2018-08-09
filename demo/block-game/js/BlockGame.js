@@ -24,14 +24,14 @@ class BlockGame {
     gameStart() {
         console.log('game start');
         let gridSetting = {
-            x: 30,
-            y: 20,
-            cols: 8,
-            rows: 10,
-            padding: 2
+            x: 50,
+            y: 50,
+            cols: 7,
+            rows: 8,
+            padding: 1
         }
         this.blockGrid = new BlockGrid(this.ctx, gridSetting);
-        this.ball = this._createBall(200, 300, 5, 'white');
+        this.ball = this._createBall(200, 300, 3, 'white');
         this.paddle = this._createPaddle(this.width / 3, this.height -30, 100, 10, '#f33');
         
         const self = this;
@@ -53,8 +53,42 @@ class BlockGame {
          // test circle rectangle overlap
         this.blockGrid.blockPool.forEachAlive(function(block) {
             if (utils.circleRectOverlap(this.ball, block)) {
-                this.ball.vy *= -1;
-                this._createPill(block.x, block.y);
+                // 重疊後要判斷碰撞到矩形的上下左右 (四個角落未判斷 當球太大會有bug)
+                
+                // 檢測碰撞矩形下方
+                if (this.ball.vy < 0 &&
+                    this.ball.y - this.ball.radius < block.bottom &&
+                    utils.inRange(this.ball.x, block.left, block.right)) {
+                    this.ball.y = block.bottom + this.ball.radius;
+                    this.ball.vy *= -1;       
+                } else
+                // 檢測碰撞矩形上方
+                if (this.ball.vy > 0 &&
+                    this.ball.y + this.ball.radius > block.top &&
+                    utils.inRange(this.ball.x, block.left, block.right)) {
+                    this.ball.y = block.top - this.ball.radius;
+                    this.ball.vy *= -1;
+                } else
+                // 檢測碰撞矩形左方
+                if (this.ball.vx > 0 &&
+                    this.ball.x + this.ball.radius > block.left &&
+                    utils.inRange(this.ball.y, block.top, block.bottom)) {
+                    this.ball.x = block.left - this.ball.radius;
+                    this.ball.vx *= -1;
+                } else
+                // 檢測碰撞矩形右方
+                if (this.ball.vx < 0 &&
+                    this.ball.x - this.ball.radius < block.right &&
+                    utils.inRange(this.ball.y, block.top, block.bottom)) {
+                    this.ball.x = block.right + this.ball.radius
+                    this.ball.vx *= -1;
+                }
+
+                let pillRnd = Math.random();
+                if (pillRnd < .5) {
+                    this._createPill(block.x, block.y);
+                }
+
                 block.kill();
                 return false;
             }
@@ -65,19 +99,28 @@ class BlockGame {
         });
 
         // detech ball & world collide
-        if (!utils.inRange(this.ball.x, this.ball.radius, this.width - this.ball.radius)) {
+        // 撞左牆
+        if (this.ball.x - this.ball.radius < 0) {
+            this.ball.x = this.ball.radius;
             this.ball.vx *= -1;
-        }
-        if (this.ball.y + this.ball.radius < 0) {
-            this.ball.y = 0;
+        } else
+        // 撞右牆
+        if (this.ball.x + this.ball.radius > this.width) {
+            this.ball.x = this.width - this.ball.radius;
+            this.ball.vx *= -1;
+        } else
+        // 撞上牆
+        if (this.ball.y - this.ball.radius < 0) {
+            this.ball.y = this.ball.radius;
             this.ball.vy *= -1;
-        }
-        if (this.ball.y > this.height) {
-            this.ball.y = this.height;
+        } else
+        // 撞下牆
+        if (this.ball.y + this.ball.radius > this.height) {
             this.ball.vx = 0;
             this.ball.vy = 0;
             console.log('gameover');
         }
+
         // detech ball & paddle collide
         if (utils.circleRectOverlap(this.ball, this.paddle)) {
             console.log('ball paddle collide');
@@ -107,12 +150,13 @@ class BlockGame {
         this._update();
         this._draw();
         this._raf = requestAnimationFrame(this._loop.bind(this));
+        // this._raf = setTimeout(this._loop.bind(this), 33);
     }
 
     _createBall(x, y, radius, color) {
         const self = this;
-        let direction = utils.degreesToRads(utils.randomRange(-30, -150));
-        const ball = new Particle(x, y, 5, direction);
+        let direction = utils.degreesToRads(utils.randomRange(-20, -160));
+        const ball = new Particle(x, y, 3, direction);
         ball.radius = radius;
         ball.color = color;
 
@@ -165,7 +209,7 @@ class BlockGame {
         } else {
             pill = new Pill(this.ctx, x, y, type);
             pill.setAnchor(.5);
-            pill.gravity = .1;
+            pill.gravity = .05;
             this.pillPool.add(pill);
         }
     }
