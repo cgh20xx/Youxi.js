@@ -54,8 +54,9 @@ class Particle {
     }
 
     set speed(speed) {
-        this.vx = Math.cos(this.heading) * speed;
-        this.vy = Math.sin(this.heading) * speed;
+        var heading = this.heading;
+        this.vx = Math.cos(heading) * speed;
+        this.vy = Math.sin(heading) * speed;
     }
 
     get heading() {
@@ -63,8 +64,9 @@ class Particle {
     }
 
     set heading(heading) {
-        this.vx = Math.cos(heading) * this.speed;
-        this.vy = Math.sin(heading) * this.speed;
+        var speed = this.speed;
+        this.vx = Math.cos(heading) * speed;
+        this.vy = Math.sin(heading) * speed;
     }
 
     accelerate(ax, ay) {
@@ -112,7 +114,7 @@ class Particle {
         var distSQ = dx * dx + dy * dy;
         var dist = Math.sqrt(distSQ);
         var force = p2.mass / distSQ;
-        var angle = this.angleTo(p2);
+        // var angle = this.angleTo(p2);
         // var ax =  Math.cos(angle) * force;
         // var ay =  Math.sin(angle) * force;
         // 上面這兩行等同於下面這兩行 (我覺得最重要的是要知道 Math.cos(θ) = dx / distance)
