@@ -4,17 +4,17 @@
  */
 class Particle {
     constructor(x = 0, y = 0, speed = 0, direction = 0, gravity = 0) {
-        this.x = x  // x 座標
-        this.y = y  // y 座標
-        this.vx = Math.cos(direction) * speed, // x 方向的速度
-        this.vy = Math.sin(direction) * speed, // y 方向的速度
-        this.mass =  1, // 質量 (跟 gravitation 有關，不是 gravity)
-        this.radius =  0, // 半徑
-        this.bounce =  -1, // 回彈
-        this.friction =  1, // 摩擦力
-        this.gravity = gravity, // 地心引力 (y 方向的加速度)
-        this.springs =  [], //儲存所有 spring (spring 是 paritcle 跟 particle 的彈簧)
-        this.gravitations =  [] //儲存所有 gravitation (gravitation 是 paritcle 跟 particle 的引力，跟 gravity 不同)
+        this.x = x;  // x 座標
+        this.y = y;  // y 座標
+        this.vx = Math.cos(direction) * speed; // x 方向的速度
+        this.vy = Math.sin(direction) * speed; // y 方向的速度
+        this.mass =  1; // 質量 (跟 gravitation 有關，不是 gravity)
+        this.radius =  0; // 半徑
+        this.bounce =  -1; // 回彈
+        this.friction =  1; // 摩擦力
+        this.gravity = gravity; // 地心引力 (y 方向的加速度)
+        this.springs =  []; //儲存所有 spring (spring 是 paritcle 跟 particle 的彈簧)
+        this.gravitations =  []; //儲存所有 gravitation (gravitation 是 paritcle 跟 particle 的引力，跟 gravity 不同)
     }
 
     addGravitation(point) {
