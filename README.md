@@ -8,7 +8,7 @@ Author: Hank Hsiao
 
 [打磚塊](https://cgh20xx.github.io/Youxi.js/demo/block-game/)
 
-[放煙火](https://cgh20xx.github.io/Youxi.js/firework/)
+[放煙火](https://cgh20xx.github.io/Youxi.js/demo/firework/)
 
 
 
