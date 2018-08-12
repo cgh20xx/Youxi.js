@@ -48,7 +48,19 @@ class FireworkGame extends Observer {
             if (utils.distance(bullet, this.cannon) > utils.distance(bullet.target, this.cannon)) {
                 // console.log('explosion');
                 bullet.kill();
-                this._explosion(bullet.x, bullet.y);
+                var expType = utils.randomInt(0, 2);
+                switch (expType) {
+                    case 0:
+                        bullet.explosion('BALL');
+                        break;
+                    case 1:
+                        bullet.explosion('HEART');
+                        break;
+                    case 2:
+                        bullet.explosion('MICKY');
+                        break;
+                }            
+               
             }
         });
         
@@ -104,7 +116,7 @@ class FireworkGame extends Observer {
             bullet.target.x = this.mouse.x;
             bullet.target.y = this.mouse.y;
         } else {
-            bullet = new Ball(this.ctx, this.cannon.x, this.cannon.y, 3, '#fff');
+            bullet = new Ball(this.ctx, this.sparkPool, this.cannon.x, this.cannon.y, 3, '#fff');
             bullet.speed = 10; // 先設定 speed 再設定 heading
             bullet.heading = Math.atan2(this.mouse.y - this.cannon.y, this.mouse.x - this.cannon.x);
             // 設定要爆炸的目標
@@ -115,44 +127,6 @@ class FireworkGame extends Observer {
             
             this.bulletPool.add(bullet);
         }
-    }
-
-    _explosion(x, y) {
-        // console.log(x, y);
-        let color = `hsl(${utils.randomInt(0, 255)}, 100%, 50%)`;
-        let fireworkType = utils.randomInt(0, 1);
-        let offsetAngle = (x > this.width / 2) ? utils.randomRange(0, Math.PI / 6) : utils.randomRange(-Math.PI / 6, 0);
-
-        function setSparkData(spark) {
-            switch (fireworkType) {
-                case 0:
-                    spark.speed = utils.randomInt(1, 6);
-                    spark.heading = Math.random() * Math.PI * 2;
-                    break;
-                case 1:
-                    spark.speed = utils.randomInt(1, 8);
-                    spark.heading = utils.randomRange(utils.degreesToRads(-135), utils.degreesToRads(-45)) + offsetAngle;
-                    break;
-            }
-        }
-
-        for (let i = 0; i < 100; i++) {
-            let spark = this.sparkPool.getFirstDead();
-            if (spark) {
-                spark.reset(x, y);
-                setSparkData(spark);
-                spark.color = color;
-                spark.life = spark.maxLife = utils.randomInt(80, 160);
-            } else {
-                spark = new Ball(this.ctx, x, y, 2, color);
-                setSparkData(spark);     
-                spark.friction = utils.randomRange(.95, .98);
-                spark.gravity = .05;
-                spark.life = spark.maxLife = utils.randomInt(80, 160);            
-                this.sparkPool.add(spark);
-            }
-        }
-        
     }
 
 }
