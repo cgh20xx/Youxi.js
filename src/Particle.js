@@ -63,6 +63,7 @@ class Particle {
         return Math.atan2(this.vy, this.vx);
     }
 
+    // 設定 heading 前需設先設定 speed
     set heading(heading) {
         var speed = this.speed;
         this.vx = Math.cos(heading) * speed;
@@ -77,9 +78,9 @@ class Particle {
     update() {
         this.handleSprings();
         this.handleGravitation();
+        this.vy += this.gravity;
         this.vx *= this.friction;
         this.vy *= this.friction;
-        this.vy += this.gravity;
         this.x += this.vx;
         this.y += this.vy;
     }
