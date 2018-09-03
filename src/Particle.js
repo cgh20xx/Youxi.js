@@ -2,14 +2,15 @@
  * Particle
  * Author: Hank Hsiao
  */
-class Particle {
+class Particle extends Observer {
     constructor(x = 0, y = 0, speed = 0, direction = 0, gravity = 0) {
+        super();
         this.x = x;  // x 座標
         this.y = y;  // y 座標
         this.vx = Math.cos(direction) * speed; // x 方向的速度
         this.vy = Math.sin(direction) * speed; // y 方向的速度
         this.mass =  1; // 質量 (跟 gravitation 有關，不是 gravity)
-        this.radius =  0; // 半徑
+        // this.radius =  0; // 半徑
         this.bounce =  -1; // 回彈
         this.friction =  1; // 摩擦力
         this.gravity = gravity; // 地心引力 (y 方向的加速度)
@@ -23,7 +24,7 @@ class Particle {
     }
 
     removeGravitation(point) {
-        for (var i = this.gravitations.length - 1; i >= 0; i--) {
+        for (let i = this.gravitations.length - 1; i >= 0; i--) {
             if (point === this.gravitations[i].point) {
                 this.gravitations.splice(i, 1);
                 return;
@@ -41,7 +42,7 @@ class Particle {
     }
 
     removeSpring(point) {
-        for (var i = this.springs.length - 1; i >= 0; i--) {
+        for (let i = this.springs.length - 1; i >= 0; i--) {
             if (point === this.springs[i].point) {
                 this.springs.splice(i, 1);
                 return;
@@ -54,7 +55,7 @@ class Particle {
     }
 
     set speed(speed) {
-        var heading = this.heading;
+        let heading = this.heading;
         this.vx = Math.cos(heading) * speed;
         this.vy = Math.sin(heading) * speed;
     }
@@ -65,7 +66,7 @@ class Particle {
 
     // 設定 heading 前需設先設定 speed
     set heading(heading) {
-        var speed = this.speed;
+        let speed = this.speed;
         this.vx = Math.cos(heading) * speed;
         this.vy = Math.sin(heading) * speed;
     }
@@ -86,14 +87,14 @@ class Particle {
     }
 
     handleSprings() {
-        for (var i = this.springs.length - 1; i >= 0; i--) {
-            var spring = this.springs[i];
+        for (let i = this.springs.length - 1; i >= 0; i--) {
+            let spring = this.springs[i];
             this.springTo(spring.point, spring.k, spring.length);
         }
     }
 
     handleGravitation() {
-        for (var i = this.gravitations.length - 1; i >= 0; i--) {
+        for (let i = this.gravitations.length - 1; i >= 0; i--) {
             this.gravitateTo(this.gravitations[i]);
         }
     }
@@ -103,34 +104,34 @@ class Particle {
     }
 
     distanceTo(p2) {
-        var dx = p2.x - this.x;
-        var dy = p2.y - this.y;
+        let dx = p2.x - this.x;
+        let dy = p2.y - this.y;
         return Math.sqrt(dx * dx + dy * dy);
     }
 
     gravitateTo(p2) {
         // 重力加速度: F = (G * M) / (r * r)
-        var dx = p2.x - this.x;
-        var dy = p2.y - this.y;
-        var distSQ = dx * dx + dy * dy;
-        var dist = Math.sqrt(distSQ);
-        var force = p2.mass / distSQ;
-        // var angle = this.angleTo(p2);
-        // var ax =  Math.cos(angle) * force;
-        // var ay =  Math.sin(angle) * force;
+        let dx = p2.x - this.x;
+        let dy = p2.y - this.y;
+        let distSQ = dx * dx + dy * dy;
+        let dist = Math.sqrt(distSQ);
+        let force = p2.mass / distSQ;
+        // let angle = this.angleTo(p2);
+        // let ax =  Math.cos(angle) * force;
+        // let ay =  Math.sin(angle) * force;
         // 上面這兩行等同於下面這兩行 (我覺得最重要的是要知道 Math.cos(θ) = dx / distance)
-        var ax =  dx / dist * force;
-        var ay =  dy / dist * force;
+        let ax =  dx / dist * force;
+        let ay =  dy / dist * force;
         this.vx += ax;
         this.vy += ay;
     }
 
     springTo(point, k, length) {
         // 彈簧公式：F = -kx (這邊是用 F = kx)            
-        var dx = point.x - this.x;
-        var dy = point.y - this.y;
-        var distance = Math.sqrt(dx * dx + dy * dy);
-        var springForce = (distance - (length || 0)) * k;
+        let dx = point.x - this.x;
+        let dy = point.y - this.y;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+        let springForce = (distance - (length || 0)) * k;
         // 我覺得最重要的是要知道 Math.cos(θ) = dx / distance
         this.vx += dx / distance * springForce;
         this.vy += dy / distance * springForce;
