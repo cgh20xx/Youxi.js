@@ -1,20 +1,8 @@
-;(function(window, document, Youxi) {
+//;(function(window, document, Youxi) {
 
-    // let game = new Youxi.Game();
-    // console.log(Object.getPrototypeOf(game).constructor);
-    // game.scene.add('home', {});
-    // game.start('home');
-    
-    // fireworkGame.on('click', function(e) {
-    //     e.preventDefault();
-    //     fireworkGame.fire();
-    // });
-
-})(window, document, Youxi);
+//})(window, document, Youxi);
 
 let game = new Youxi.Game().init();
-console.log(game);
-let homeScene = new Youxi.Scene({
-    // todo
-});
+console.log(game.scene);
 game.scene.add('homeScene', homeScene);
+game.scene.start('homeScene');

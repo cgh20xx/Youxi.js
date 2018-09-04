@@ -4,9 +4,10 @@
  * extents Particle
  */
 class GameObject extends Particle {
-    constructor(ctx, x, y, img) {
+    constructor(game, x, y, img) {
         super(x, y) // super(x, y, speed, direction, gravity)
-        this.ctx = ctx;
+        this.game = game;
+        this.game.ctx = ctx;
         this.img = img;
         this._init();
     }
@@ -63,11 +64,11 @@ class GameObject extends Particle {
     }
 
     draw() {
-        this.ctx.save();
-        this.ctx.translate(this.x, this.y);
-        if (this.isRotate) this.ctx.rotate(this.angle);
-        this.ctx.scale(this.scale.x, this.scale.y); // scale 功能尚未完善
-        this.ctx.drawImage(
+        this.game.ctx.save();
+        this.game.ctx.translate(this.x, this.y);
+        if (this.isRotate) this.game.ctx.rotate(this.angle);
+        this.game.ctx.scale(this.scale.x, this.scale.y); // scale 功能尚未完善
+        this.game.ctx.drawImage(
             this.img,
             -this.width * this.anchor.x,
             -this.height * this.anchor.y,
@@ -75,17 +76,17 @@ class GameObject extends Particle {
             this.height);
         // show aabb box outline
         if (this.aabb) {
-            // this.ctx.strokeStyle = 'red';
-            this.ctx.beginPath();
-            this.ctx.rect(
+            // this.game.ctx.strokeStyle = 'red';
+            this.game.ctx.beginPath();
+            this.game.ctx.rect(
                 -this.width * this.anchor.x,
                 -this.height * this.anchor.y,
                 this.width,
                 this.height);
-            this.ctx.closePath();
-            this.ctx.stroke();
+            this.game.ctx.closePath();
+            this.game.ctx.stroke();
         }     
-        this.ctx.restore();
+        this.game.ctx.restore();
     }
 
     kill() {

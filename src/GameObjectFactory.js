@@ -1,8 +1,8 @@
 /**
- * Youxi.SceneManager
+ * Youxi.GameObjectFactory
  * Author: Hank Hsiao
  */
-Youxi.SceneManager = class SceneManager {
+Youxi.GameObjectFactory = class GameObjectFactory {
     constructor(game) {
         this.game = game;
         this.scene = {};
@@ -11,10 +11,6 @@ Youxi.SceneManager = class SceneManager {
     add(key, scene) {
         this.scene[key] = scene;
         return this;
-    }
-
-    start(key) {
-        // this.scene[key]
     }
 
 }
