@@ -2,8 +2,7 @@
  * Youxi.Game
  * Author: Hank Hsiao
  */
-let Youxi = {};
-Youxi.Game = class Game extends Observer {
+Youxi.Game = class Game extends Youxi.Event {
     constructor(userSetting) {
         super();
         let defaultSetting = {
@@ -30,6 +29,8 @@ Youxi.Game = class Game extends Observer {
     _boot() {
         this.scene = new Youxi.SceneManager(this);
         this.add = new Youxi.GameObjectFactory(this);
+        this.cache = {};
+        this.load = new Youxi.Loader(this);
 
         this.raf = window.requestAnimationFrame(timestamp => this._loop(timestamp));
     }

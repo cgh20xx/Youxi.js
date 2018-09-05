@@ -4,5 +4,5 @@
 
 let game = new Youxi.Game().init();
 console.log(game.scene);
-game.scene.add('homeScene', homeScene);
+game.scene.add('homeScene', new HomeScene);
 game.scene.start('homeScene');

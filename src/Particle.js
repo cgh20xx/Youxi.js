@@ -2,7 +2,7 @@
  * Particle
  * Author: Hank Hsiao
  */
-class Particle extends Observer {
+class Particle extends Youxi.Event {
     constructor(x = 0, y = 0, speed = 0, direction = 0, gravity = 0) {
         super();
         this.x = x;  // x 座標
