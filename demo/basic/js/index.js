@@ -1,5 +1,4 @@
 //;(function(window, document, Youxi) {
-
 //})(window, document, Youxi);
 
 let game = new Youxi.Game().init();
