@@ -2,7 +2,7 @@
  * Youxi.Scene
  * Author: Hank Hsiao
  */
-Youxi.Scene = class Scene {
+export default class Scene {
   constructor(game) {
     /**
      * @property {Youxi.Game} game - 參考到當前正在執行的遊戲

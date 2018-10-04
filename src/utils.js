@@ -1,4 +1,4 @@
-var utils = {
+const utils = {
   // 比較a和b 回傳小的值
   min: function(a, b) {
     return a < b ? a : b;
@@ -297,3 +297,5 @@ var utils = {
     );
   }
 };
+
+export { utils };

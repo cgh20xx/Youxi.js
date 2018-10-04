@@ -2,7 +2,7 @@
  * Group
  * Author: Hank Hsiao
  */
-class Group {
+export default class Group {
   constructor() {
     this.pool = [];
   }

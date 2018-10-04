@@ -2,7 +2,7 @@
  * Youxi.Loader
  * Author: Hank Hsiao
  */
-Youxi.Loader = class Loader {
+export default class Loader {
   constructor(game) {
     /**
      * @property {Youxi.Game} game - 參考到當前正在執行的遊戲

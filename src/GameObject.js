@@ -1,3 +1,4 @@
+import Particle from './Particle';
 /**
  * 這是一個給所有要顯示於畫面上的物件的基礎遊戲物件
  * 這是抽像類別不應被直接使用而需被繼承
@@ -7,7 +8,7 @@
  * extents Particle
  *
  */
-class GameObject extends Particle {
+export default class GameObject extends Particle {
   constructor(ctx, x, y) {
     super(x, y); // super(x, y, speed, direction, gravity)
     this.ctx = ctx;

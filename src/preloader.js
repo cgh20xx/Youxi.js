@@ -8,7 +8,7 @@
  *  License: MIT
  */
 
-var preloader = function(option) {
+export default function preloader(option) {
   var queue = {}; //儲存載完的檔案
   var settings = {
     manifest: [],

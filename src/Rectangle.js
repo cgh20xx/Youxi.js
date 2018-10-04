@@ -5,7 +5,7 @@
  * @class
  * @memberof Youxi
  */
-Youxi.Rectangle = class Rectangle {
+export default class Rectangle {
   /**
    * @param {number} [x=0] - The X coordinate of the upper-left corner of the rectangle
    * @param {number} [y=0] - The Y coordinate of the upper-left corner of the rectangle

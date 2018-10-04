@@ -2,7 +2,7 @@
  * Youxi.GameObjectFactory
  * Author: Hank Hsiao
  */
-Youxi.GameObjectFactory = class GameObjectFactory {
+export default class GameObjectFactory {
   constructor(game) {
     this.game = game;
     this.scene = {};

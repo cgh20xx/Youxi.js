@@ -1,8 +1,9 @@
+import Event from './Event';
 /**
  * Youxi.Game
  * Author: Hank Hsiao
  */
-Youxi.Game = class Game extends Youxi.Event {
+export default class Game extends Event {
   constructor(userSetting) {
     super();
     let defaultSetting = {

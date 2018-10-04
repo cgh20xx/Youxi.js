@@ -2,7 +2,7 @@
  * Youxi.SceneManager
  * Author: Hank Hsiao
  */
-Youxi.SceneManager = class SceneManager {
+export default class SceneManager {
   constructor(game) {
     this.game = game;
     this.scene = {};

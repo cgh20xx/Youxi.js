@@ -1,8 +1,9 @@
+import Event from './Event';
 /**
  * Particle
  * Author: Hank Hsiao
  */
-class Particle extends Youxi.Event {
+export default class Particle extends Event {
   constructor(x = 0, y = 0, speed = 0, direction = 0, gravity = 0) {
     super();
     this.x = x; // x 座標

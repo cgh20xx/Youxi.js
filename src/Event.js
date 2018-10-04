@@ -3,7 +3,7 @@
  * Author: Hank Hsiao
  * Reference: https://github.com/component/emitter/blob/master/index.js
  */
-Youxi.Event = class Event {
+export default class Event {
   constructor(obj) {
     if (obj) {
       return Youxi.Event.copy(obj);
