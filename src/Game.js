@@ -37,7 +37,9 @@ export default class Game extends Event {
   }
 
   _loop(timestamp) {
-    console.log('loop ');
+    if (this.scene.currentScene) {
+      this.scene.currentScene.update.call(this);
+    }
     this.update();
     this.render();
     this.raf = window.requestAnimationFrame(timestamp => this._loop(timestamp));

@@ -101,9 +101,67 @@ export default class Loader {
   }
 
   /**
+   * 處理加載資源序列
+   *
+   * @method Youxi.Loader#_processLoadQueue
+   */
+  _processLoadQueue() {
+    // todo 改 fetch
+    let getBlob = function(src) {
+      return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', file.src, true);
+        xhr.responseType = 'blob';
+        xhr.addEventListener('load', function(e) {
+          if (e.target.status === 200) {
+              resolve(e);
+          } else {
+            reject(e);
+          }
+        }, false);
+        xhr.addEventListener('error', function(e) {
+          reject(e);
+        }, false);
+        xhr.send();
+      });
+    };
+
+    let rule = {
+      image: function(response) {
+        var img = document.createElement('img');
+        img.src = URL.createObjectURL(response);;
+      },
+      audio: function() {
+        var audio = document.createElement('audio');
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', file.src, true);
+        xhr.responseType = 'blob';
+        xhr.addEventListener('load', handler.audio.bind(audio, file.id), false);
+        xhr.addEventListener('error', onError.bind(audio, file.id), false);
+        xhr.send();
+      },
+      video: function() {
+        var video = document.createElement('video');
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', file.src, true);
+        xhr.responseType = 'blob';
+        xhr.addEventListener('load', handler.video.bind(video, file.id), false);
+        xhr.addEventListener('error', onError.bind(video, file.id), false);
+        xhr.send();
+      }
+    };
+
+    this._fileList.forEach(file => {
+      getBlob(file.src).then(function(e) {
+        rule[file.type](e.target.response);
+      });
+    });
+  }
+
+  /**
    * 開始加載資源 通常不需自行呼叫此方法 SceneManager 會自行呼叫
    *
-   * @method Phaser.Loader#start
+   * @method Youxi.Loader#start
    */
   start() {
     if (this.isLoading) {
@@ -113,7 +171,7 @@ export default class Loader {
     this.hasLoaded = false;
     this.isLoading = true;
 
-    this.updateProgress();
+    // this.updateProgress();
 
     this.processLoadQueue();
   }
