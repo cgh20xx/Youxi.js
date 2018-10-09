@@ -98,7 +98,7 @@ export default class Event {
    * @param  {Any} optional args
    * @return {Youxi.Event}
    */
-  trigger() {
+  trigger(event) {
     this.subscribers = this.subscribers || {};
     let args = [].slice.call(arguments, 1);
     let callbacks = this.subscribers[event];

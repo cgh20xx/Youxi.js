@@ -1,9 +1,11 @@
+import Event from './Event';
 /**
  * Youxi.Loader
  * Author: Hank Hsiao
  */
-export default class Loader {
+export default class Loader extends Event {
   constructor(game) {
+    super(null);
     /**
      * @property {Youxi.Game} game - 參考到當前正在執行的遊戲
      */
@@ -35,6 +37,14 @@ export default class Loader {
     this._totalFileCount = 0;
 
     /**
+     * loaded file 的數量
+     * @property {Number} _loadedFileCount
+     * @private
+     */
+    this._loadedFileCount = 0;
+
+
+    /**
      * 如果 Loader 已經在處理 queue 則為 true
      * @property {boolean} isLoading
      * @default
@@ -64,7 +74,7 @@ export default class Loader {
       type: type,
       key: key,
       url: url,
-      data: null,
+      el: null,
       loading: false,
       loaded: false,
       error: false
@@ -83,7 +93,7 @@ export default class Loader {
    * @return {Youxi.Loader} Youxi.Loader 實例
    */
   image(key, url) {
-    this._addToFileList('image', key, url);
+    this._addToFileList('img', key, url);
     return this;
   }
 
@@ -106,56 +116,29 @@ export default class Loader {
    * @method Youxi.Loader#_processLoadQueue
    */
   _processLoadQueue() {
-    // todo 改 fetch
-    let getBlob = function(src) {
-      return new Promise((resolve, reject) => {
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', file.src, true);
-        xhr.responseType = 'blob';
-        xhr.addEventListener('load', function(e) {
-          if (e.target.status === 200) {
-              resolve(e);
-          } else {
-            reject(e);
-          }
-        }, false);
-        xhr.addEventListener('error', function(e) {
-          reject(e);
-        }, false);
-        xhr.send();
-      });
-    };
-
-    let rule = {
-      image: function(response) {
-        var img = document.createElement('img');
-        img.src = URL.createObjectURL(response);;
-      },
-      audio: function() {
-        var audio = document.createElement('audio');
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', file.src, true);
-        xhr.responseType = 'blob';
-        xhr.addEventListener('load', handler.audio.bind(audio, file.id), false);
-        xhr.addEventListener('error', onError.bind(audio, file.id), false);
-        xhr.send();
-      },
-      video: function() {
-        var video = document.createElement('video');
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', file.src, true);
-        xhr.responseType = 'blob';
-        xhr.addEventListener('load', handler.video.bind(video, file.id), false);
-        xhr.addEventListener('error', onError.bind(video, file.id), false);
-        xhr.send();
-      }
-    };
-
-    this._fileList.forEach(file => {
-      getBlob(file.src).then(function(e) {
-        rule[file.type](e.target.response);
-      });
+    this.isLoading = true;
+    let loadList =  this._fileList.map(file => {
+      return fetch(file.url)
+        .then(res => {
+          if (res.ok) return res.blob();
+          throw new Error('Network response was not ok.');
+        })
+        .then(blob => {
+          this._loadedFileCount++;
+          file.el = document.createElement(file.type);
+          file.el.src = URL.createObjectURL(blob);
+          file.loaded = true;
+          this.trigger('loaded', file, this._loadedFileCount, this._totalFileCount);
+          return this.game.cache[file.key] = file;
+        })
+        .catch(error => console.log(error.message));
     });
+    Promise.all(loadList).then(res => {
+      // console.log('all loaded');
+      this.isLoading = false;
+      this.hasLoaded = true;
+      this.trigger('complete', res);
+    })
   }
 
   /**
@@ -173,6 +156,6 @@ export default class Loader {
 
     // this.updateProgress();
 
-    this.processLoadQueue();
+    this._processLoadQueue();
   }
 };

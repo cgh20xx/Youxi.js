@@ -1,15 +1,14 @@
-import Particle from './Particle';
+import GameObject from './GameObject';
 /**
  * GameObject
  * Author: Hank Hsiao
  * extents Particle
  */
-export default class Sprite extends Particle {
-  constructor(game, x, y, img) {
-    super(x, y); // super(x, y, speed, direction, gravity)
+export default class Sprite extends GameObject {
+  constructor(game, key, x, y) {
+    super(game.ctx, x, y);
     this.game = game;
-    this.game.ctx = ctx;
-    this.img = img;
+    this.img = this.game.cache[key];
     this._init();
   }
 
