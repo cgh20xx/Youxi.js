@@ -1,12 +1,12 @@
-import GameObject from './GameObject';
+import Group from './Group';
 /**
- * GameObject
+ * Sprite
  * Author: Hank Hsiao
  * extents Particle
  */
-export default class Sprite extends GameObject {
+export default class Sprite extends Group {
   constructor(game, key, x, y) {
-    super(game.ctx, x, y);
+    super(game, x, y);
     this.game = game;
     this.img = this.game.cache[key];
     this._init();

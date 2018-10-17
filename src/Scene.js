@@ -1,23 +1,16 @@
+import Group from './Group';
 /**
  * Youxi.Scene
  * Author: Hank Hsiao
  */
-export default class Scene {
+export default class Scene extends Group {
   constructor(game) {
+    super(game);
     /**
      * @property {Youxi.Game} game - 參考到當前正在執行的遊戲
      */
     this.game = game;
 
-    /**
-     * @property {Youxi.GameObjectFactory} game - 參考到 GameObjectFactory 用於產生新遊戲物件到世界中
-     */
-    this.add = null;
-
-    /**
-     * @property {Youxi.Loader} load - 參考到 Loader 用於場景中預載遊戲資源
-     */
-    this.load = null;
   }
 
   /**

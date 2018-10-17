@@ -9,9 +9,9 @@ import Particle from './Particle';
  *
  */
 export default class GameObject extends Particle {
-  constructor(ctx, x, y) {
+  constructor(game, x, y) {
     super(x, y); // super(x, y, speed, direction, gravity)
-    this.ctx = ctx;
+    this.ctx = game.ctx;
     this.angle = 0;
     this.scale = {
       x: 1,

@@ -1,9 +1,11 @@
+import GameObject from './GameObject';
 /**
  * Group
  * Author: Hank Hsiao
  */
-export default class Group {
-  constructor() {
+export default class Group extends GameObject {
+  constructor(game, x, y) {
+    super(game, x, y);
     this.pool = [];
   }
 

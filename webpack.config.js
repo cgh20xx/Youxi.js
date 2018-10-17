@@ -1,6 +1,8 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
+  mode: 'development',
   entry: './src/index.js',
   output: {
     filename: 'Youxi.js',
@@ -9,8 +11,13 @@ module.exports = {
     // libraryTarget: 'var'
   },
   devServer: {
-    contentBase: './',
-    hot: true
+    // contentBase: './',
+    contentBase: path.resolve(__dirname, "demo/basic/"),
+    publicPath: '/dist/',
+    // hot: true,
+    watchContentBase: true,
   },
-  mode: 'development'
+  // plugins: [
+  //   new webpack.HotModuleReplacementPlugin()
+  // ],
 };

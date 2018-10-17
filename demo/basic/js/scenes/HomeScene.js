@@ -1,5 +1,8 @@
 class HomeScene extends Youxi.Scene {
-    
+
+    constructor(game) {
+        super(game);
+    }
     // override
     init() {
         console.log('my init');
@@ -18,7 +21,7 @@ class HomeScene extends Youxi.Scene {
         this.dog = this.add.sprite('dog', 0, 0);
         this.ball = this.add.sprite('ball', 100, 100);
         console.log('==============');
-        console.log(this.dog);
+        console.log(this);
         // todo 在 add.sprite 時建立將 sprite 加到 world(group) 中
     }
     
