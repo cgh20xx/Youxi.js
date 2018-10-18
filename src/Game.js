@@ -1,9 +1,9 @@
-import Event from './Event';
+import Emitter from './Emitter';
 /**
  * Youxi.Game
  * Author: Hank Hsiao
  */
-export default class Game extends Event {
+export default class Game extends Emitter {
   constructor(userSetting) {
     super();
     let defaultSetting = {

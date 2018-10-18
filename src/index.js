@@ -9,7 +9,7 @@ import preloader from './preloader';
 // console.log(utils.max(3, 5));
 export { utils, preloader};
 
-export { default as Event } from './Event';
+export { default as Emitter } from './Emitter';
 export { default as Game } from './Game';
 export { default as GameObject } from './GameObject';
 export { default as GameObjectFactory } from './GameObjectFactory';

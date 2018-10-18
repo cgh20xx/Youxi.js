@@ -1,9 +1,9 @@
-import Event from './Event';
+import Emitter from './Emitter';
 /**
  * Youxi.Loader
  * Author: Hank Hsiao
  */
-export default class Loader extends Event {
+export default class Loader extends Emitter {
   constructor(game) {
     super(null);
     /**

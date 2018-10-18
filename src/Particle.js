@@ -1,9 +1,9 @@
-import Event from './Event';
+import Emitter from './Emitter';
 /**
  * Particle
  * Author: Hank Hsiao
  */
-export default class Particle extends Event {
+export default class Particle extends Emitter {
   constructor(x = 0, y = 0, speed = 0, direction = 0, gravity = 0) {
     super();
     this.x = x; // x 座標

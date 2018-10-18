@@ -1,18 +1,18 @@
 /**
- * Youxi.Event
+ * Youxi.Emitter
  * Author: Hank Hsiao
  * Reference: https://github.com/component/emitter/blob/master/index.js
  */
-export default class Event {
+export default class Emitter {
   constructor(obj) {
     if (obj) {
-      return Youxi.Event.copy(obj);
+      return Youxi.Emitter.copy(obj);
     }
   }
 
   static copy(obj) {
-    for (let key in Youxi.Event.prototype) {
-      obj[key] = Youxi.Event.prototype[key];
+    for (let key in Youxi.Emitter.prototype) {
+      obj[key] = Youxi.Emitter.prototype[key];
     }
     return obj;
   }
@@ -22,7 +22,7 @@ export default class Event {
    *
    * @param {String} event - event name
    * @param {Function} fn
-   * @return {Youxi.Event}
+   * @return {Youxi.Emitter}
    * @api public
    */
   on(event, fn) {
@@ -39,7 +39,7 @@ export default class Event {
    * Trigger `event` with given args.
    * @param  {String} event - event name
    * @param  {Any} optional args
-   * @return {Youxi.Event}
+   * @return {Youxi.Emitter}
    */
   once(event, fn) {
     function on() {
@@ -56,7 +56,7 @@ export default class Event {
    * Trigger `event` with given args.
    * @param  {String} event - event name
    * @param  {Any} optional args
-   * @return {Youxi.Event}
+   * @return {Youxi.Emitter}
    */
   off(event, fn) {
     this.subscribers = this.subscribers || {};
@@ -96,7 +96,7 @@ export default class Event {
    * Trigger `event` with given args.
    * @param  {String} event - event name
    * @param  {Any} optional args
-   * @return {Youxi.Event}
+   * @return {Youxi.Emitter}
    */
   trigger(event) {
     this.subscribers = this.subscribers || {};
