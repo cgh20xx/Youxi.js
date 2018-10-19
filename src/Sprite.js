@@ -29,10 +29,10 @@ export default class Sprite extends Group {
     this.aabb = false;
   }
 
-  reset(x, y, img) {
+  reset(key, x, y) {
     this.x = x;
     this.y = y;
-    this.img = img;
+    this.img = this.game.cache[key];
     this.vx = 0;
     this.vy = 0;
     this.isRotate = true;
